@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "@/components/ui/select";
 import { Plus } from "lucide-react";
-import { Task, Priority, TaskStatus, CreateTaskForm } from "@/types/boardTypes";
+import { Priority, TaskStatus, CreateTaskForm } from "@/types/boardTypes";
 import { User } from "@/types/reduxTypes";
 import { createTask, getAllUsers } from "@/APIs/boardApis";
 import { toast } from "sonner";

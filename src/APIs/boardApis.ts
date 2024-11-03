@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import envConfig from "@/config/envConfig";
-import { CreateTaskForm, getAllTasksResponse, Task } from "../types/boardTypes";
+import { CreateTaskForm, getAllTasksResponse, Task, UpdateTaskRequest } from "../types/boardTypes";
 import { User } from "@/types/reduxTypes";
 
 
@@ -10,13 +10,6 @@ const serverURI = envConfig.get('serverURI') as string;
 const jsonConfig: AxiosRequestConfig = {
     headers: {
         "Content-Type": "application/json",
-    },
-    withCredentials: true,
-};
-
-const formDataConfig: AxiosRequestConfig = {
-    headers: {
-        "Content-Type": "multipart/form-data",
     },
     withCredentials: true,
 };
@@ -103,6 +96,28 @@ export const updateTaskStatus = async ({
 // Get all users
 export const getAllUsers = async (): Promise<ApiResponse<User[]>> => {
     return await apiRequest<User[]>('/task/users/getall', 'get');
+};
+
+
+// API for updating task
+export const updateTask = async (
+    taskData: UpdateTaskRequest
+): Promise<ApiResponse<Task>> => {
+    return await apiRequest<Task>(
+        `/task/${taskData.taskId}`,
+        "put",
+        taskData
+    );
+};
+
+// API for deleting task
+export const deleteTask = async (
+    taskId: string
+): Promise<ApiResponse<{ message: string }>> => {
+    return await apiRequest<{ message: string }>(
+        `/task/${taskId}`,
+        "delete"
+    );
 };
 
 

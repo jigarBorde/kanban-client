@@ -49,3 +49,15 @@ export interface getAllTasksResponse {
     message: string
     tasks: [],
 }
+
+// Interface for update task request
+export interface UpdateTaskRequest {
+    taskId: string;
+    title?: string;
+    description?: string;
+    assignee?: string;
+    dueDate?: Date;
+    priority?: string;
+    lastModifiedBy?: string;
+    labels?: string[];
+}
