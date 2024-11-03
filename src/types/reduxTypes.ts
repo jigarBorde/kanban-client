@@ -1,7 +1,10 @@
 export interface User {
-    id: string;
+    _id: string;
     email: string;
-    name: string;
+    firstName: string;
+    lastName: string;
+    createdAt?: Date;
+    updatedAt?: Date;
 }
 
 export interface AuthState {

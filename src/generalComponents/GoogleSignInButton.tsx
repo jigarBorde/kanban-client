@@ -1,7 +1,8 @@
 import React from "react";
 import { GoogleLogin, CredentialResponse } from '@react-oauth/google';
-import { useAppDispatch, useAppSelector } from '../hooks/redux';
+import { useAppDispatch } from '../hooks/redux';
 import { googleLogin } from '../slices/authSlice';
+import { toast } from "sonner";
 
 
 const GoogleSignInButton: React.FC = () => {
@@ -18,6 +19,10 @@ const GoogleSignInButton: React.FC = () => {
             if (googleLogin.fulfilled.match(result)) {
                 // Login successful
                 console.log('Google login successful');
+                toast.success("Google Login Successful")
+            } else {
+                console.log('Google login failed');
+                toast.error("Google Login Failed")
             }
         } else {
             console.log("no token")

@@ -1,38 +1,71 @@
-import React, { useEffect } from 'react'
-import { GoogleOAuthProvider } from '@react-oauth/google';
-import GoogleSignInButton from './generalComponents/GoogleSignInButton';
-import envConfig from './config/envConfig';
+// src/App.tsx
+import React, { Suspense, useEffect } from 'react';
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from './hooks/redux';
-import { loadProfile, logoutUser } from './slices/authSlice';
-
-
-
-const clientId = envConfig.get('googleClientId') as string;
-
+import LoginPage from './pages/LoginPage';
+import BoardPage from './pages/BoardPage';
+import PrivateRoute from './generalComponents/PrivateRoute';
+import { loadProfile } from './slices/authSlice';
+import Layout from './generalComponents/layout/Layout';
+interface RootState {
+  auth: {
+    isAuthenticated: boolean;
+    user: object | null;
+  };
+}
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { user } = useAppSelector(state => state.auth);
-
+  const { isAuthenticated, user } = useAppSelector((state: RootState) => state.auth);
 
   useEffect(() => {
-    console.log("Hello World!")
     if (!user) {
-      dispatch(logoutUser());
+      dispatch(loadProfile());
     }
-
-  }, [user])
-
+  }, [dispatch, user]);
 
   return (
-    <GoogleOAuthProvider clientId={clientId}>
-      <div>
-        <h1>React OAuth</h1>
-        <p>Click the button below to sign in with Google</p>
-        <GoogleSignInButton />
-      </div>
-    </GoogleOAuthProvider>
-  )
+    <BrowserRouter>
+      <Suspense
+        fallback={
+          <div className="min-h-screen w-full flex items-center justify-center">
+            <div className="text-xl font-semibold">Loading...</div>
+          </div>
+        }
+      >
+        <Routes>
+          {/* Public Routes */}
+          <Route
+            path="/login"
+            element={
+              isAuthenticated ? <Navigate to="/board" replace /> : <LoginPage />
+            }
+          />
+          <Route
+            path="/"
+            element={
+              isAuthenticated ? <Navigate to="/board" replace /> : <LoginPage />
+            }
+          />
+
+          {/* Protected Routes */}
+          <Route
+            path="/board"
+            element={
+              <PrivateRoute element={() => (
+                <Layout>
+                  <BoardPage />
+                </Layout>
+              )} />
+            }
+          />
+
+          {/* 404 Route */}
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </Suspense>
+    </BrowserRouter>
+  );
 };
 
-export default App
+export default App;

@@ -123,8 +123,12 @@ const authSlice = createSlice({
             })
             .addCase(loadProfile.fulfilled, (state, action) => {
                 state.loading = false;
-                state.user = action.payload.user;
-                state.isAuthenticated = true;
+                if (action.payload.user) {
+                    state.user = action.payload.user;
+                    state.isAuthenticated = true; // Set only if user data exists
+                } else {
+                    state.isAuthenticated = false; // If no user data, set to false
+                }
             })
             .addCase(loadProfile.rejected, (state, action) => {
                 state.loading = false;
@@ -142,5 +146,5 @@ const authSlice = createSlice({
     },
 });
 
-export const { logout, setUser } = authSlice.actions;
+export const { resetAuthState, setUser } = authSlice.actions;
 export default authSlice.reducer;
