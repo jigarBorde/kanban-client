@@ -14,7 +14,6 @@ const jsonConfig: AxiosRequestConfig = {
     withCredentials: true,
 };
 
-// Define a generic type for the API response
 interface ApiResponse<T> {
     success: boolean;
     data?: T;
@@ -119,17 +118,3 @@ export const deleteTask = async (
         "delete"
     );
 };
-
-
-// // Additional API examples
-// // Get user data API
-// export const getUserDataApi = async (): Promise<ApiResponse<UserData>> => {
-//   return await apiRequest<UserData>("/user/data", "get");
-// };
-
-// // Upload file API
-// export const uploadFileApi = async (
-//   formData: FormData
-// ): Promise<ApiResponse<FileUploadResponse>> => {
-//   return await apiRequest<FileUploadResponse>("/file/upload", "post", formData, formDataConfig);
-// };

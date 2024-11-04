@@ -38,7 +38,7 @@ export const googleLogin = createAsyncThunk(
 
             const response = await axios.post(
                 `${serverURI}/auth/google-login`,
-                {}, // Empty body since we're sending token in header
+                {},
                 config
             );
             return response.data;

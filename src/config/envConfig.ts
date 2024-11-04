@@ -25,12 +25,10 @@ function getEnvValue<K extends keyof EnvConfig>(key: K): EnvConfig[K] {
     return value;
 }
 
-// Create a read-only interface for accessing environment variables
 const envConfig = {
     get: getEnvValue
 } as const;
 
 export default envConfig;
 
-// Optional: Export type for use in other files
 export type { EnvConfig };

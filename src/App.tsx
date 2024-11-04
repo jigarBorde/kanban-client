@@ -1,4 +1,3 @@
-// src/App.tsx
 import React, { Suspense, useEffect } from 'react';
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from './hooks/redux';
