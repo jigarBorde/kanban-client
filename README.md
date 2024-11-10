@@ -49,6 +49,20 @@ npm run dev
 
 The application will be available at [http://localhost:5173](http://localhost:5173)
 
+## Screenshots
+
+Here are some screenshots of the Kanban board. Click on the dropdown below to view them:
+
+<details>
+  <summary>Click to view Screenshot 1</summary>
+  <img src="./public/login.png" alt="Kanban Board Screenshot 1" width="600"/>
+</details>
+
+<details>
+  <summary>Click to view Screenshot 2</summary>
+  <img src="./public/dashboard.png" alt="Kanban Board Screenshot 2" width="600"/>
+</details>
+
 ## Available Scripts
 
 - `npm run dev` - Starts the development server
